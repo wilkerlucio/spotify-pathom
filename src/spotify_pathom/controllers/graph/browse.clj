@@ -9,34 +9,29 @@
   (-> {::api/endpoint (str "browse/featured-playlists")}
       (merge env)
       (api/api)
-      (update-in [:playlists :items] #(mapv adapt/playlist %))
-      (->> (hash-map :spotify.browse/featured-playlists))))
+      :playlists
+      (update :items #(mapv adapt/playlist %))
+      (api/paged-result :spotify.browse/featured-playlists)))
 
 (graph/add-resolver! `featured-playlists
-  {::p.connect/output [#:spotify.browse{:featured-playlists [:message
-                                                             {:playlists [:href
-                                                                          {:items [:spotify.playlist/public
-                                                                                   :spotify.playlist/type
-                                                                                   #:spotify.playlist{:images [:height :url :width]}
-                                                                                   #:spotify.playlist{:owner [:spotify.user/display-name
-                                                                                                              #:spotify.user{:external-urls [:spotify]}
-                                                                                                              :spotify.user/href
-                                                                                                              :spotify.user/id
-                                                                                                              :spotify.user/type
-                                                                                                              :spotify.user/uri]}
-                                                                                   :spotify.playlist/name
-                                                                                   :spotify.playlist/snapshot-id
-                                                                                   #:spotify.playlist{:external-urls [:spotify]}
-                                                                                   :spotify.playlist/collaborative
-                                                                                   #:spotify.playlist{:tracks [:href :total]}
-                                                                                   :spotify.playlist/id
-                                                                                   :spotify.playlist/href
-                                                                                   :spotify.playlist/uri]}
-                                                                          :limit
-                                                                          :next
-                                                                          :offset
-                                                                          :previous
-                                                                          :total]}]}]})
+  {::p.connect/output [#:spotify.browse{:featured-playlists [:spotify.playlist/public
+                                                             :spotify.playlist/type
+                                                             #:spotify.playlist{:images [:height :url :width]}
+                                                             #:spotify.playlist{:owner [:spotify.user/display-name
+                                                                                        #:spotify.user{:external-urls [:spotify]}
+                                                                                        :spotify.user/href
+                                                                                        :spotify.user/id
+                                                                                        :spotify.user/type
+                                                                                        :spotify.user/uri]}
+                                                             :spotify.playlist/name
+                                                             :spotify.playlist/snapshot-id
+                                                             #:spotify.playlist{:external-urls [:spotify]}
+                                                             :spotify.playlist/collaborative
+                                                             #:spotify.playlist{:tracks [:href :total]}
+                                                             :spotify.playlist/id
+                                                             :spotify.playlist/href
+                                                             :spotify.playlist/uri]}
+                       #:spotify.browse{:featured-playlists-page [:href :limit :next :offset :previous :total]}]})
 
 (defn new-releases [env _]
   (-> {::api/endpoint (str "browse/new-releases")}

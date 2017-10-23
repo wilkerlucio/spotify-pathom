@@ -50,14 +50,3 @@
                                                    #:spotify.track{:external-urls [:spotify]}
                                                    :spotify.track/id]}
                        #:spotify.playlist{:tracks-page [:href :limit :next :offset :previous :total]}]})
-
-(comment
-  (->> "https://api.spotify.com/v1/users/spotify/playlists/37i9dQZF1DXcF6B6QPhFDv/tracks"
-      (re-find #"v1/(.+)")
-       second)
-
-  (-> (playlist-tracks {::api/token "BQAWXZw51LRH7j1tAsI3y5OFTofNJ3bYDWqSwqS6HB8iUpmtXDimyS2nF4LhU2nbyCGrVadslX__VJQceEKQRA"}
-     {:spotify.playlist/tracks-ref
-      {:href  "https://api.spotify.com/v1/users/spotify/playlists/37i9dQZF1DXcF6B6QPhFDv/tracks",
-       :total 61}})
-      (p.connect/data->shape)))
