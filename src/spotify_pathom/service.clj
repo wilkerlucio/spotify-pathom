@@ -2,7 +2,8 @@
   (:require [io.pedestal.http :as http]
             [io.pedestal.http.route :as route]
             [io.pedestal.http.body-params :as body-params]
-            [spotify-pathom.parser :refer [parser]]
+            [spotify-pathom.controllers.graph :refer [parser]]
+            [spotify-pathom.logic.api :as api]
             [ring.util.response :as ring-resp]))
 
 (defn about-page
@@ -15,9 +16,11 @@
   [request]
   (ring-resp/response "Hello World!"))
 
+(def token "BQDDPXCCimIu4xG4ng9cFyftzAlCjjO6esWbWUqRQNGH6uW32GMiVrKRywAGV4lo6ZYS9Yez1z6X7izFoaREjnBm8B_rA50Hne9Er25Lhy5rllT0gTi4Ydg3KMr5Dnmr9ulnaKl8EaXslNAxfrti5xM6_Z37sMJXnVB2eQMmBIkcVj3Uz1BXihjTALhaifqkTog0sImHchpLIKguxuWmt7qYVR_kgUR3KAYHSucEg-bwDD3Sr7o")
+
 (defn graph-api
   [{:keys [transit-params]}]
-  (-> (parser {} transit-params)
+  (-> (parser {::api/token token} transit-params)
       (ring-resp/response)))
 
 ;; Defines "/" and "/about" routes with their associated :get handlers.
