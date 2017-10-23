@@ -6,6 +6,9 @@
             [spotify-pathom.controllers.graph.artists]
             [spotify-pathom.controllers.graph.browse]
             [spotify-pathom.controllers.graph.library]
+            [spotify-pathom.controllers.graph.player]
+            [spotify-pathom.controllers.graph.playlist]
+            [spotify-pathom.controllers.graph.track]
             [spotify-pathom.logic.graph :as logic.graph]))
 
 (def parser

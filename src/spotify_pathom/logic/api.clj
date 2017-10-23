@@ -8,3 +8,10 @@
                      :as      :json
                      :url     (str "https://api.spotify.com/v1/" endpoint)})
       :body))
+
+(defn url->endpoint [url]
+  (->> url (re-find #"v1/(.+)") second))
+
+(defn paged-result [res out]
+  {out                                (:items res)
+   (keyword (namespace out) (str (name out) "-page")) (dissoc res :items)})

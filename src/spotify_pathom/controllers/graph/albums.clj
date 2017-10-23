@@ -64,31 +64,26 @@
       (merge env)
       (api/api)
       (update :items #(mapv adapt/track %))
-      (->> (hash-map :spotify.album/tracks))))
+      (api/paged-result :spotify.album/tracks)))
 
 (graph/add-resolver! `album-tracks
   {::p.connect/input  #{:spotify.album/id}
-   ::p.connect/output [#:spotify.album{:tracks [:href
-                                                {:items [:spotify.track/href
-                                                         :spotify.track/available-markets
-                                                         :spotify.track/disc-number
-                                                         :spotify.track/explicit
-                                                         :spotify.track/name
-                                                         :spotify.track/duration-ms
-                                                         #:spotify.track{:artists [#:spotify.artist{:external-urls [:spotify]}
-                                                                                   :spotify.artist/href
-                                                                                   :spotify.artist/id
-                                                                                   :spotify.artist/name
-                                                                                   :spotify.artist/type
-                                                                                   :spotify.artist/uri]}
-                                                         :spotify.track/uri
-                                                         :spotify.track/type
-                                                         #:spotify.track{:external-urls [:spotify]}
-                                                         :spotify.track/preview-url
-                                                         :spotify.track/id
-                                                         :spotify.track/track-number]}
-                                                :limit
-                                                :next
-                                                :offset
-                                                :previous
-                                                :total]}]})
+   ::p.connect/output [#:spotify.album{:tracks [:spotify.track/preview-url
+                                                :spotify.track/available-markets
+                                                :spotify.track/href
+                                                :spotify.track/duration-ms
+                                                :spotify.track/track-number
+                                                :spotify.track/explicit
+                                                :spotify.track/name
+                                                #:spotify.track{:artists [#:spotify.artist{:external-urls [:spotify]}
+                                                                          :spotify.artist/href
+                                                                          :spotify.artist/id
+                                                                          :spotify.artist/name
+                                                                          :spotify.artist/type
+                                                                          :spotify.artist/uri]}
+                                                :spotify.track/uri
+                                                :spotify.track/type
+                                                :spotify.track/disc-number
+                                                #:spotify.track{:external-urls [:spotify]}
+                                                :spotify.track/id]}
+                       #:spotify.album{:tracks-page [:href :limit :next :offset :previous :total]}]})

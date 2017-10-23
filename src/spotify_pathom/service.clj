@@ -16,7 +16,7 @@
   [request]
   (ring-resp/response "Hello World!"))
 
-(def token "BQDDPXCCimIu4xG4ng9cFyftzAlCjjO6esWbWUqRQNGH6uW32GMiVrKRywAGV4lo6ZYS9Yez1z6X7izFoaREjnBm8B_rA50Hne9Er25Lhy5rllT0gTi4Ydg3KMr5Dnmr9ulnaKl8EaXslNAxfrti5xM6_Z37sMJXnVB2eQMmBIkcVj3Uz1BXihjTALhaifqkTog0sImHchpLIKguxuWmt7qYVR_kgUR3KAYHSucEg-bwDD3Sr7o")
+(def token "BQAQauhUhZlsB54dNQZC3pkUpWQ55rzRPAbeenrY-tms1n6TiX8dhcnpW8Up6eM2l-THMGYmDLmpGPcfmc7SgEHTNhQC9FoFPWv18VD8pMPbG3eO8BUu1Bt4T6iaZr2Uk9qeZWwqwvGxLV2eCAcb9kWck76C0yznISMjOqJ65V_LZzKhFXGhLphoNnqendFadWD7VCcjzVblV3AiyHYdZh73tj9JfIDOy46RdsNMEGtrf60")
 
 (defn graph-api
   [{:keys [transit-params]}]

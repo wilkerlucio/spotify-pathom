@@ -28,31 +28,26 @@
       (merge env)
       (api/api)
       (update :items #(mapv adapt/album %))
-      (->> (hash-map :spotify.artist/albums))))
+      (api/paged-result :spotify.artist/albums)))
 
 (graph/add-resolver! `artist-albums
   {::p.connect/input  #{:spotify.artist/id}
-   ::p.connect/output [#:spotify.artist{:albums [:href
-                                                 {:items [:spotify.album/album-type
-                                                          #:spotify.album{:external-urls [:spotify]}
-                                                          #:spotify.album{:images [:height :url :width]}
-                                                          :spotify.album/available-markets
-                                                          #:spotify.album{:artists [#:spotify.artist{:external-urls [:spotify]}
-                                                                                    :spotify.artist/href
-                                                                                    :spotify.artist/id
-                                                                                    :spotify.artist/name
-                                                                                    :spotify.artist/type
-                                                                                    :spotify.artist/uri]}
-                                                          :spotify.album/name
-                                                          :spotify.album/uri
-                                                          :spotify.album/type
-                                                          :spotify.album/href
-                                                          :spotify.album/id]}
-                                                 :limit
-                                                 :next
-                                                 :offset
-                                                 :previous
-                                                 :total]}]})
+   ::p.connect/output [#:spotify.artist{:albums [:spotify.album/album-type
+                                                 :spotify.album/available-markets
+                                                 #:spotify.album{:images [:height :url :width]}
+                                                 #:spotify.album{:artists [#:spotify.artist{:external-urls [:spotify]}
+                                                                           :spotify.artist/href
+                                                                           :spotify.artist/id
+                                                                           :spotify.artist/name
+                                                                           :spotify.artist/type
+                                                                           :spotify.artist/uri]}
+                                                 :spotify.album/name
+                                                 :spotify.album/uri
+                                                 :spotify.album/type
+                                                 #:spotify.album{:external-urls [:spotify]}
+                                                 :spotify.album/href
+                                                 :spotify.album/id]}
+                       #:spotify.artist{:albums-page [:href :limit :next :offset :previous :total]}]})
 
 (defn artist-top-tracks [env {:spotify.artist/keys [id]}]
   (-> {::api/endpoint (str "artists/" id "/top-tracks?country=BR")}
