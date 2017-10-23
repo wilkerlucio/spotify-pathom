@@ -34,11 +34,21 @@
   (-> category
       (namespace-keys "spotify.category")))
 
+(defn device [device]
+  (-> device
+      (namespace-keys "spotify.device")))
+
 (defn playlist [playlist]
   (-> playlist
       (update-in-if [:tracks :items] #(mapv track %))
       (update-in-if [:owner] typed)
       (namespace-keys "spotify.playlist")))
+
+(defn player [player]
+  (-> player
+      (update :device device)
+      (update :item track)
+      (namespace-keys "spotify.player")))
 
 (defn track [track]
   (-> track

@@ -116,10 +116,3 @@
                                              :offset
                                              :previous
                                              :total]}]})
-
-(comment
-
-  (-> (tracks {::api/token "BQDDPXCCimIu4xG4ng9cFyftzAlCjjO6esWbWUqRQNGH6uW32GMiVrKRywAGV4lo6ZYS9Yez1z6X7izFoaREjnBm8B_rA50Hne9Er25Lhy5rllT0gTi4Ydg3KMr5Dnmr9ulnaKl8EaXslNAxfrti5xM6_Z37sMJXnVB2eQMmBIkcVj3Uz1BXihjTALhaifqkTog0sImHchpLIKguxuWmt7qYVR_kgUR3KAYHSucEg-bwDD3Sr7o"}
-        {})
-      (p.connect/data->shape))
-  )

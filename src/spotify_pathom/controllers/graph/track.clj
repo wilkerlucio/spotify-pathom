@@ -5,7 +5,7 @@
             [com.wsscode.pathom.connect :as p.connect]))
 
 (defn audio-features [env {:spotify.track/keys [id]}]
-  (-> {::endpoint (str "audio-features/" id)}
+  (-> {::api/endpoint (str "audio-features/" id)}
       (merge env)
       (api/api)
       (adapt/track)))
@@ -32,7 +32,7 @@
                        :spotify.track/id]})
 
 (defn track-by-id [env {:spotify.track/keys [id]}]
-  (-> {::endpoint (str "tracks/" id)}
+  (-> {::api/endpoint (str "tracks/" id)}
       (merge env)
       (api/api)
       (adapt/track)))
